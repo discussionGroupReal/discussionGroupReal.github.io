@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24 points</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      /*centers the whole script code into the middle of window*/
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      background-color: #aadeff;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+    }
+    .form {
+      text-align: center;
+    }
+
+    #output {
+      line-height: 0.5;
+      width: 3cm;
+    }
+    /*The fancy input box*/
+    /*1*/
+    #input {
+      display: block;
+      margin: auto;
+      margin-bottom: 1cm;
+      margin-top: 0.8cm;
+      border: none;
+      padding: 0;
+      width: 6ch;
+      background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 10ch 2px no-repeat;
+      font: 5ch droid sans mono, consolas, monospace;
+      letter-spacing: 0.5ch;
+      
+    }
+    #input:focus {
+      outline: none;
+      color: dodgerblue;
+    }
+    /*2*/
+    #number {
+      display: block;
+      margin: auto;
+      margin-bottom: 1cm;
+      margin-top: 0.8cm;
+      border: none;
+      padding: 0;
+      width: 6ch;
+      background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 10ch 2px no-repeat;
+      font: 5ch droid sans mono, consolas, monospace;
+      letter-spacing: 0.5ch;
+      
+    }
+    #number:focus {
+      outline: none;
+      color: dodgerblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main" id="main">
+
+    <div class="form" autocomplete="off">
+      <form action="#" name="form1">
+        <!--The input from which we try to get the number-->
+        <label for="input" style="font-size:50px;">Please input a 4 digit number!</label>
+        <input type="text" id="input" name="input" onfocus="this.value=''" maxlength='4' autocomplete="off" placeholder="0000">
+        <input type="submit" value="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" onclick="processingCheck(); return false;">
+        <!--The number which user wants to get-->
+        <label for="number" style="font-size:50px;">What do you want to get?</label><br>
+        <input type="text" id="number" name="number" maxlength='4' autocomplete="off" value=24><br>
+        <!--place for result and alert-->
+        <label id="result"></label><br>
+        <label id="info"></label><br>
+        <label id="alert"></label><br>
+      </form> 
+    </div>
+
+    <div id="output">
+    </div>
+
+  </div>
+
+  <script>
+
+    // the four calculations
+    function addition(a, b){
+      return a + b;
+    }
+
+    function subtraction(a, b){
+      return a - b;
+    }
+
+    function multiplication(a, b){
+      return a * b;
+    }
+
+    function division(a, b){
+      return a / b;
+    }
+
+    //assigns calculation
+    function assignment(calc, a, b){
+      switch (calc){
+        case 1:
+          return (addition(a,b));
+        case 2:
+          return (subtraction(a,b));
+        case 3:
+          return (multiplication(a,b));
+        case 4:
+          return (division(a,b));
+        default:
+          console.log("assignment function bug")
+      }
+    }
+
+    //the seven calc_priorities
+    // a - result of first and second
+    // b - result of second and third
+    // c - result of third and fourth
+    // d - result of first, second and third
+    // e - result of second, third and fourth
+    // f - result of all digits
+    //one priority calc
+    function calc_1p(first,second,third,fourth,calc1,calc2,calc3){
+      a = assignment(calc1, first, second);
+      d = assignment(calc2, a, third);
+      f = assignment(calc3, d, fourth);
+      return f;
+    }
+
+    function calc_2p(first,second,third,fourth,calc1,calc2,calc3){
+      b = assignment(calc2, second, third);
+      d = assignment(calc1, first, b);
+      f = assignment(calc3, d, fourth);
+      return f;
+    }
+
+    function calc_3p(first,second,third,fourth,calc1,calc2,calc3){
+      c = assignment(calc3, third, fourth);
+      a = assignment(calc1, first, second);
+      f = assignment(calc2, a, c);
+      return f;
+    }
+
+    // two priority calcs
+    // this is meaningless because calc_12p === calc_1p
+    /*
+    function calc_12p(first,second,third,fourth,calc1,calc2,calc3){
+      a = assignment(calc1, first, second);
+      d = assignment(calc2, a, third);
+      f = assignment(calc3, d, fourth);
+      return f;
+    }
+    */
+
+    // this is meaningless because calc_21p === calc_2p
+    /*
+    function calc_21p(first,second,third,fourth,calc1,calc2,calc3){
+      b = assignment(calc2, second, third);
+      d = assignment(calc1, first, b);
+      f = assignment(calc3, d, fourth);
+      return f;
+    }
+    */
+
+    // this is meaningless because calc_13p === calc_3p
+    /*
+    function calc_13p(first,second,third,fourth,calc1,calc2,calc3){
+      a = assignment(calc1, first, second);
+      c = assignment(calc3, third, fourth);
+      f = assignment(calc2, a, c);
+      return f;
+    }
+    */
+
+    // it's meaningless because calc_13p === calc_31p
+    /*
+    function calc_31p(first,second,third,fourth,calc1,calc2,calc3){
+      a = assignment(calc1, first, second);
+      c = assignment(calc3, third, fourth);
+      f = assignment(calc2, a, c);
+      return f;
+    }
+    */
+
+    function calc_23p(first,second,third,fourth,calc1,calc2,calc3){
+      b = assignment(calc2, second, third);
+      e = assignment(calc3, b, fourth);
+      f = assignment(calc1, first, e);
+      return f;
+    }
+
+    function calc_32p(first,second,third,fourth,calc1,calc2,calc3){
+      c = assignment(calc3, third, fourth);
+      e = assignment(calc2, second, c);
+      f = assignment(calc1, first, e);
+      return f;
+    }
+
+    // three priority calcs - calculation in the normal order
+    // this is meaningless because calc_123p === calc_1p
+    /*
+    function calc_123p(first,second,third,fourth,calc1,calc2,calc3){
+      a = assignment(calc1, first, second);
+      d = assignment(calc2, a, third);
+      f = assignment(calc3, d, fourth);
+      return f;
+    }
+    */
+
+
+    //translates calc to =-*/
+    function calcInterpreter(calc){
+      switch (calc){
+        case 1:
+          return "+";
+        case 2:
+          return "-";
+        case 3: 
+          return "*";
+        case 4: 
+          return "/";
+        default:
+          console.log("calcInterpreter bug");
+      }
+    }
+
+    //outputs the calculation
+    function TheInterpreter(f,s,t,fo,calc1,calc2,calc3,caseNr){
+      a = calcInterpreter(calc1);
+      b = calcInterpreter(calc2);
+      c = calcInterpreter(calc3);
+      switch (caseNr){
+        case 1:
+          text = "(" + "(" + f.toString() + a + s.toString() + ")" + b + t.toString() + ")" + c + fo.toString();
+          break;
+        case 2:
+          text = "(" + f.toString() + a + "(" + s.toString() + b + t.toString() + ")" + ")" + c + fo.toString();
+          break;
+        case 3:
+          text = "(" + f.toString() + a + s.toString() + ")" + b + "(" + t.toString() + c + fo.toString() + ")";
+          break;
+        case 23:
+          text = f.toString() + a + "(" + "(" + s.toString() + b + t.toString() + ")" + c + fo.toString() + ")";
+          break;
+        case 32:
+          text = f.toString() + a + "(" + s.toString() + b + "(" + t.toString() + c + fo.toString() + ")" + ")";
+          break;
+      }
+      
+      if (!SolutionList.includes(text)){
+        SolutionList.push(text);
+        AmountOfSolution++;
+        const para = document.createElement("p");
+        const node = document.createTextNode(text);
+        para.appendChild(node);
+        const element = document.getElementById("output");
+        element.appendChild(para);
+      }
+    }
+
+    //permutation function, source code: https://stackoverflow.com/questions/9960908/permutations-in-javascript/37580979#37580979
+    function permute(input, usedChars, permArr) {
+      let i, ch;
+      for (i = 0; i < input.length; i++) {
+        ch = input.splice(i, 1)[0];
+        usedChars.push(ch);
+        if (input.length == 0) {
+          permArr.push(usedChars.slice());
+        }
+        permute(input, usedChars, permArr);
+        input.splice(i, 0, ch);
+        usedChars.pop();
+      }
+      return permArr;
+    };
+
+    //Checks if input contains only numbers/ Main function
+    function processingCheck(){
+      let permArr = [];
+      let usedChars = [];
+      let input = document.forms["form1"]["input"].value; // gets input value
+      let number = document.forms["form1"]["number"].value; // gets the number which we will check 
+      if (number.length == 0){
+        number = 0;
+      }
+      document.getElementById("input").innerHTML = "";
+      input = input.replace(/\s/g, ''); // clear the spaces
+      let isnumber = /^\d+$/.test(input); // checks if there are letters
+      if (!isnumber || input.length !== 4){
+        if (!isnumber){
+          document.getElementById("alert").innerHTML = "This does not contain only numbers!";
+        } else if (input.length !== 4){
+          document.getElementById("alert").innerHTML = "You have to insert exactly 4 digits!";
+        } else{
+          document.getElementById("alert").innerHTML = "What have you done!";
+        }
+        
+      } else{
+        document.getElementById("output").remove();
+        document.getElementById("alert").innerHTML = "";
+        input = input.split("");
+        for (var i = 0; i < input.length; i++){
+          input[i] = Number(input[i]);
+        }
+        solutions = processing(permute(input, usedChars, permArr),number); // gets permutations, returns an array
+        document.getElementById("result").innerHTML = "There are " + solutions + " solutions!";
+        document.getElementById("info").innerHTML = "digits: " + input + " , " + "number: " + number;
+      }
+
+    }
+
+    //The main function
+    function processing(permList,number){
+      console.log(number)
+      //creates a div for the outputs later on
+      let div = document.createElement("div");
+      div.id = "output";
+      document.getElementById("main").appendChild(div);
+
+      number=Number(number);
+      //makes each calculation as a different variable
+      // 1 -- addition
+      // 2 -- subtraction
+      // 3 -- multiplication
+      // 4 -- division
+      calc_1 = 1;
+      calc_2 = 1;
+      calc_3 = 1;
+
+      //amount of solutions
+      AmountOfSolution = 0;
+      SolutionList = [];
+      
+
+      for (let i = 0; i < 4*3*2*1; i++){
+        //making each digit a different variable
+        let first = permList[i][0];
+        let second = permList[i][1];
+        let third = permList[i][2];
+        let fourth = permList[i][3];
+        for (let j = 0; j < 64; j++){
+          if (calc_1p(first,second,third,fourth,calc_1,calc_2,calc_3) === number){
+            TheInterpreter(first, second, third, fourth, calc_1, calc_2, calc_3,1);
+          }
+          if (calc_2p(first,second,third,fourth,calc_1,calc_2,calc_3) === number){
+            TheInterpreter(first, second, third, fourth, calc_1, calc_2, calc_3,2);
+          }
+          if (calc_3p(first,second,third,fourth,calc_1,calc_2,calc_3) === number){
+            TheInterpreter(first, second, third, fourth, calc_1, calc_2, calc_3,3);
+          }
+          if (calc_23p(first,second,third,fourth,calc_1,calc_2,calc_3) === number){
+            TheInterpreter(first, second, third, fourth, calc_1, calc_2, calc_3,23);
+          }
+          if (calc_32p(first,second,third,fourth,calc_1,calc_2,calc_3) === number){
+            TheInterpreter(first, second, third, fourth, calc_1, calc_2, calc_3,32);
+          }
+
+          //update calculations
+          calc_3 += 1
+          if (calc_3 > 4){
+            calc_3 = 1
+            calc_2 += 1
+            if (calc_2 > 4){
+              calc_2 = 1
+              calc_1 += 1
+              if (calc_1 > 4){
+                calc_1 = 1
+                calc_2 = 1
+                calc_3 = 1
+              }
+            }
+          }
+        }
+      }
+      return AmountOfSolution;
+    }
+  </script>
+  
+</body>
+
+</html>

@@ -15,7 +15,6 @@
             color: #333;
             margin: 0;
             padding: 0;
-            height: 100%;
             overflow: auto;
         }
 
@@ -44,14 +43,14 @@
 
         /* PDF Section Style */
         .pdf-section {
-            background-color: #393E46; /* Dark Gray */
+            background-color: #EEEEEE; /* Light Gray */
             border-radius: 10px;
             padding: 20px;
             margin: 10px 0;
             width: 100%;
             max-width: 700px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            color: #EEEEEE; /* Light Gray text */
+            color: #393E46; /* Dark Gray text */
         }
 
         /* PDF Title Style */
@@ -64,7 +63,7 @@
         /* Description Style */
         .description {
             font-size: 16px;
-            color: #EEEEEE; /* Light Gray text */
+            color: #393E46; /* Dark Gray text */
             margin: 10px 0;
         }
 
@@ -86,61 +85,54 @@
             background-color: #222831; /* Very Dark Blue */
         }
 
-        /* Additional Link Style */
-        .about-link {
+        /* About Section */
+        .about-section {
+            background-color: #00ADB5; /* Teal */
+            border-radius: 10px;
+            padding: 20px;
             margin-top: 20px;
+            color: #EEEEEE; /* Light Gray text */
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Title */
+        .about-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        /* About Content */
+        .about-content {
+            font-size: 16px;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Open PDF Files in a New Window</h1>
+        <h1>Discussion Group</h1>
         <!-- PDF Sections -->
         <div class="pdf-section">
-            <div class="pdf-title">BRI PDF</div>
+            <div class="pdf-title">The Belt and Road Initiative</div>
             <p class="description">This section contains information about the Belt and Road Initiative (BRI). Below is the link to view the detailed PDF.</p>
             <a href="The BRI.pdf" target="_blank">Open BRI PDF</a>
             <p class="description">The document provides comprehensive details and analysis of the Belt and Road Initiative. Click to access the full report.</p>
         </div>
         <div class="pdf-section">
-            <div class="pdf-title">Gaza-Israel Conflict PDF</div>
+            <div class="pdf-title">Gaza-Israel Conflict</div>
             <p class="description">This section provides insights into the Gaza-Israel conflict. Find the PDF link below to explore the report.</p>
             <a href="Gaza-Israel conflict.pdf" target="_blank">Open Gaza-Israel Conflict PDF</a>
             <p class="description">This PDF covers the Gaza-Israel conflict extensively. Click the link to read the complete document.</p>
         </div>
-        <!-- Additional PDF Sections -->
-        <div class="pdf-section">
-            <div class="pdf-title">Athens Historical Sites PDF</div>
-            <p class="description">This PDF provides a detailed guide to the historical sites of Athens. Click below to view the document.</p>
-            <a href="athens-historical-sites.pdf" target="_blank">Open Athens Historical Sites PDF</a>
-            <p class="description">Explore the rich history of Athens with this comprehensive guide. Click to read more.</p>
-        </div>
-        <div class="pdf-section">
-            <div class="pdf-title">Mediterranean Cuisine PDF</div>
-            <p class="description">Discover the delights of Mediterranean cuisine in this PDF. Find the link below to access it.</p>
-            <a href="mediterranean-cuisine.pdf" target="_blank">Open Mediterranean Cuisine PDF</a>
-            <p class="description">Enjoy a detailed exploration of Mediterranean dishes and recipes. Click to view the full PDF.</p>
-        </div>
-        <div class="pdf-section">
-            <div class="pdf-title">Greek Mythology PDF</div>
-            <p class="description">Learn about Greek mythology with this detailed PDF. Click below to open the document.</p>
-            <a href="greek-mythology.pdf" target="_blank">Open Greek Mythology PDF</a>
-            <p class="description">This PDF covers various myths and legends of ancient Greece. Click to access the full report.</p>
-        </div>
-        <div class="pdf-section">
-            <div class="pdf-title">Mediterranean Travel Guide PDF</div>
-            <p class="description">This travel guide provides useful tips and information for traveling around the Mediterranean. Find the link below.</p>
-            <a href="mediterranean-travel-guide.pdf" target="_blank">Open Mediterranean Travel Guide PDF</a>
-            <p class="description">Plan your Mediterranean journey with this comprehensive travel guide. Click to read the document.</p>
-        </div>
-        <div class="pdf-section">
-            <div class="pdf-title">Ancient Greek Architecture PDF</div>
-            <p class="description">Explore ancient Greek architecture through this detailed PDF. Click below to open the file.</p>
-            <a href="ancient-greek-architecture.pdf" target="_blank">Open Ancient Greek Architecture PDF</a>
-            <p class="description">Discover the architectural wonders of ancient Greece. Click to view the complete document.</p>
-        </div>
-        <div class="about-link">
-            <a href="about.html">Learn More About Us</a>
+        <!-- About Us Section -->
+        <div class="about-section">
+            <div class="about-title">About Us</div>
+            <div class="about-content">
+              A small group of like-minded people.
+            </div>
         </div>
     </div>
 </body>
